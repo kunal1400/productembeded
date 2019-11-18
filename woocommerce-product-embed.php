@@ -65,7 +65,7 @@ function sendHtml($product) {
 	return '<div class="col-md-3">
 	        <div class="card">
 	        	'.$image.$is_on_sale.'
-	        	<div class="productInfo">
+	        	<div class="productInfo clearfix">
 		        	<h3><b>'.$name.'</b></h3>
 		        	<div class="cancel price leftalign"><strike><small>'.$symbol.$regularPrice.'</small></strike></div>	        	
 		        	<div class="inline-block">
@@ -89,4 +89,43 @@ function wpa3396_page_template( $page_template ) {
         $page_template = dirname( __FILE__ ) . '/productembeded.php';
     }
     return $page_template;
+}
+
+/**
+* Adding columns for events post type in admin area
+**/
+add_filter( 'manage_pages_columns', 'simple_events_filter_posts_columns' );
+add_filter( 'manage_pages_custom_column', 'simple_events_realestate_column', 10, 2 );
+function simple_events_filter_posts_columns( $columns ) {	
+	// $columns['eventname'] = __( 'Event Name' );
+	// $columns['venu'] = __( 'Venue', 'smashing' );
+	// $columns['location'] = __( 'Location', 'smashing' );
+	// $columns['datetime'] = __( 'Date and Time' );
+	// $columns['shortcode'] = __( 'Shortcode' );
+	$columns['embeded_link'] = __( 'Embeded Link' );
+	return $columns;
+}
+
+/**
+* Populating columns for events post type in admin area
+**/
+// add_action( 'manage_simple_events_posts_custom_column', 'simple_events_realestate_column', 10, 2);
+function simple_events_realestate_column( $column, $post_id ) {
+	if ( 'embeded_link' === $column ) {
+		$post_slug = get_post_field( 'post_name', $post_id );
+    	$stringPresent = strpos('-'.$post_slug, 'productembeded');
+    	if ( $stringPresent ) {
+    		echo '&lt;iframe width="100%" height="530px" src="'.get_permalink($post_id).'" frameborder="0"&gt;&lt/iframe&gt;';
+	    }
+	}
+}
+
+add_action('admin_notices', 'blackhole_tools_admin_notice');
+function blackhole_tools_admin_notice() {
+	$screen = get_current_screen();	
+	if($screen->post_type == 'page'){
+		echo '<div class="notice notice-info">
+		    <p>For generating an embedded link: <br/>1) Add <b><i>productembeded</i></b> string in your slug <br/>2) Add shortcode <b><i>[productembeded ids="x, y, z"]</i></b> in editor where x, y, z are product ids.</p>
+		</div>';
+	}	
 }
