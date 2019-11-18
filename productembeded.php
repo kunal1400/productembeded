@@ -1,6 +1,6 @@
 <?php 
 /** 
-* Template Name: Product Embeded Page 
+* Template Name: Product Embeded Page
 **/
 
 // require('./wp-load.php');

@@ -115,7 +115,7 @@ function simple_events_realestate_column( $column, $post_id ) {
 		$post_slug = get_post_field( 'post_name', $post_id );
     	$stringPresent = strpos('-'.$post_slug, 'productembeded');
     	if ( $stringPresent ) {
-    		echo '&lt;iframe width="100%" height="530px" src="'.get_permalink($post_id).'" frameborder="0"&gt;&lt/iframe&gt;';
+    		echo '&lt;iframe width="100%" style="border: 1px solid #dcdcdc;" height="530px" src="'.get_permalink($post_id).'" frameborder="0"&gt;&lt/iframe&gt;';
 	    }
 	}
 }
