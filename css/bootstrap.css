@@ -1023,84 +1023,80 @@ hr {
 /**
 * Custom style
 **/
-.border {	
-    border: 1px solid #e2e2e2;
-    padding: 15px 0;
-    margin-bottom: 15px;
-}
-.padding15 {
-  padding: 15px;
-}
-.jobData {
-    position: relative;
-    overflow: hidden;
-}
-.requestLeadDetails,
-.userRequestedToJob {
-    background-color: #0ea432;
-    color: #fff;
-    border: none;
-    padding: 15px 15px;
-    border-radius: 5px;
-}
-.filterButton {
-	background-color: #11abd6;
-    color: #fff;
-    border: none;
-    padding: 15px 15px;
-    border-radius: 5px;	
-}
-.activeCatergory a {
-  border-bottom: 1px dotted !important;
-}
-
-.singleJobListing .jobTitle,
-.singleJobListing .jobCategoriesWrapper,
-.singleJobListing .jobOtherDetails,
-.singleJobListing .jobDescription {
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   text-align: center;
+  margin: 50px auto;
+  position: relative;    
+  /*max-width: 300px;*/
 }
 
-.jobCategoriesWrapper > span,
-.jobOtherDetails > span {
-  margin-right: 10px;
+.price {
+  color: grey;
+  font-size: 22px;
 }
 
-.singleJobListing .jobDescription,
-.singleJobListing .jobOtherDetails {
-    padding-top: 20px;
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
 }
-.ccontent {
-  padding-top: 50px;
-  padding-bottom: 50px;
+
+.card button:hover {
+  opacity: 0.7;
 }
-.redBlock {
-    width: 100px;
-    height: 100px;
-    background-color: aqua;
-    display: inline-block
+
+.card img {
+  width: 100%;
 }
-.whiteBlock {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    display: inline-block
+
+.btn-donate {
+  background: #e83a3a;
+  text-align: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  text-decoration: none;
+  right: 15px;
+  top: 0;
 }
-.yellowBlock {
-    width: 100px;
-    height: 100px;
-    background-color: yellow;
-    display: inline-block
+.cancel {
+  color: #e83a3a;
 }
-.shadow {
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+.inline-block>div {
+  display: inline-block;
+  width: 49%;
+  height: 40px;
 }
-.rounded {
-    border-radius: .25rem!important;
+a.iframeBtn {
+  background-color: #3cbfe2;
+  padding: 10px 15px;
+  border-radius: 14px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
 }
-.bodyPadding {
-  padding: 50px 0;
+.leftalign {
+  text-align: left;
 }
-.iframeBtn{
-  
+.rightalign {
+  text-align: right;
+}
+.productInfo {
+  padding: 12px;
+  text-align: left;
 }

@@ -28,7 +28,7 @@ function productembeded_shortcode_callback( $atts ) {
 		$productIds = $a['ids'];		
 		$ids = explode(",", $productIds);
 		$ids = array_unique($ids);
-		$string = '<div class="container bodyPadding"><div class="row">';
+		$string = '<div class="container"><div class="row">';
 		foreach ($ids as $i => $id) {
 			// Get $product object from product ID source https://businessbloomer.com/woocommerce-easily-get-product-info-title-sku-desc-product-object/
 			$product = wc_get_product( $id );			
@@ -58,17 +58,35 @@ function sendHtml($product) {
 	$symbol = get_woocommerce_currency_symbol();
 	$permalink = get_permalink( $product->get_id() );
 	if($is_on_sale) {
-		$is_on_sale ='<span class="onsale">Sale!</span>';		
+		$is_on_sale ='<span class="btn-donate">Sale!</span>';		
 	} else {
 		$is_on_sale ='';
 	}
-	return '<div class="col-md-3 shadow p-3 mb-5 bg-white rounded">
-	        <div class="">'.$image.$is_on_sale.'</div>
-	        <div class=""><b>'.$name.'</b></div>
-	        <div class=""><strike>'.$symbol.$regularPrice.'</strike></div>
-	        <div class="row">
-	        	<div class="col-md-6">'.$symbol.$saleprice.'</div>
-	        	<div class="col-md-6"><a target="_blank" href="'.$permalink.'" class="iframeBtn">Info</a></div>
-	        </div>
+	return '<div class="col-md-3">
+	        <div class="card">
+	        	'.$image.$is_on_sale.'
+	        	<div class="productInfo">
+		        	<h3><b>'.$name.'</b></h3>
+		        	<div class="cancel price leftalign"><strike><small>'.$symbol.$regularPrice.'</small></strike></div>	        	
+		        	<div class="inline-block">
+		        		<div class="price leftalign"><b>'.$symbol.$saleprice.'</b></div>
+		        		<div class="rightalign"><a target="_blank" href="'.$permalink.'" class="iframeBtn">Info</a></div>
+		        	</div>
+	        	</div>
+	        </div>	        
         </div>';
+}
+
+add_filter( 'page_template', 'wpa3396_page_template' );
+function wpa3396_page_template( $page_template ) {
+	global $post;
+    $post_slug = $post->post_name;
+
+    // appending the dash at first position so that we will not get 0
+    $stringPresent = strpos('-'.$post_slug, 'productembeded');
+
+    if ( $stringPresent ) {
+        $page_template = dirname( __FILE__ ) . '/productembeded.php';
+    }
+    return $page_template;
 }
