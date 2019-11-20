@@ -2,17 +2,46 @@
 /** 
 * Template Name: Product Embeded Page
 **/
+require fs_get_wp_config_path();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) ?>css/bootstrap.css" type="text/css" />
+	<style type="text/css">
+		body {
+		    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		    font-size: 14px;
+		    color: #333333;
+		    background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<?php echo do_shortcode("[productembeded]"); ?>
+</body>
+</html>
+<?php
 
-wp_head();
-if ( have_posts() ) {
-	while ( have_posts() ) {
-		the_post(); 
-		// echo do_shortcode("[productembeded]");
-		the_content();
-	}
+function fs_get_wp_config_path() {
+    $base = dirname(__FILE__);
+    $path = false;
+
+    if (@file_exists(dirname(dirname($base))."/wp-load.php")) {
+        $path = dirname(dirname($base))."/wp-load.php";
+    }
+    else if (@file_exists(dirname(dirname(dirname($base)))."/wp-load.php")) {
+        $path = dirname(dirname(dirname($base)))."/wp-load.php";
+    }
+    else
+        $path = false;
+
+    if ($path != false) {
+        $path = str_replace("\\", "/", $path);
+    }
+    return $path;
 }
-wp_footer();
-
 
 ?>
 
@@ -37,4 +66,15 @@ wp_footer();
 	// $.post('https://topnakup.si/wp-content/uploads/woo-product-feed-pro/xml/7Oqy1OO12CzQTBGJc6QH5VlXBGUECyBT.xml', { url: url }, function(data) {
 	//     document.getElementById('somediv').innerHTML = data;        
 	// });
+
+	
+	// jQuery( ".listing__detail--wrapper" ).load( "https://topnakup.si/productembeded-page/", function() {
+	//   alert( "Load was performed." );
+	// });
+
+	
+	// jQuery( ".listing__detail--wrapper" ).load( "http://localhost/wp-plugin-tasks/productembeded", function() {
+	//   alert( "Load was performed." );
+	// });
+
 </script>

@@ -8,10 +8,10 @@ Author: Kunal Malviya
 Author URI: https://www.facebook.com/lucky.kunalmalviya
 */
 
-add_action('wp_enqueue_scripts', 'productembeded_enqueue_script');
-function productembeded_enqueue_script(){
-	wp_enqueue_style( 'productembeded_css', plugin_dir_url( __FILE__ ) . 'css/bootstrap.css' );
-}
+// add_action('wp_enqueue_scripts', 'productembeded_enqueue_script');
+// function productembeded_enqueue_script(){
+// 	wp_enqueue_style( 'productembeded_css', plugin_dir_url( __FILE__ ) . 'css/bootstrap.css' );
+// }
 
 /**
 * Adding shortcode for this plugin
@@ -56,8 +56,8 @@ function productembeded_shortcode_callback( $atts ) {
 			}
 			return $string .= '</div></div>';
 		} else {
-			return "ddd";
-		}		
+			return;
+		}
 	}
 }
 
@@ -107,10 +107,10 @@ function sendHtml($product) {
 	return '<div class="col-md-3">
 	        <div class="card" >
 	        	<a target="_blank" href="'.$permalink.'">
-	        		<img src="'.$image.'" style="width:300px;height:300px" />
+	        		<img src="'.$image.'" style="width:100%;max-height:200px;" />
 	        		'.$is_on_sale.'
 	        	</a>
-	        	<div class="productInfo clearfix" style="height:137px;">	        		
+	        	<div class="productInfo clearfix">	        		
 		        	<h3><b><a target="_blank" href="'.$permalink.'">'.$name.'</a></b></h3>		        	
 		        	<div class="cancel price leftalign"><strike><small>'.$symbol.$regularPrice.'</small></strike></div>	        	
 		        	<div class="inline-block">
@@ -136,41 +136,60 @@ function wpa3396_page_template( $page_template ) {
     return $page_template;
 }
 
-// /**
-// * Adding columns for events post type in admin area
-// **/
-// add_filter( 'manage_pages_columns', 'simple_events_filter_posts_columns' );
-// add_filter( 'manage_pages_custom_column', 'simple_events_realestate_column', 10, 2 );
-// function simple_events_filter_posts_columns( $columns ) {	
-// 	// $columns['eventname'] = __( 'Event Name' );
-// 	// $columns['venu'] = __( 'Venue', 'smashing' );
-// 	// $columns['location'] = __( 'Location', 'smashing' );
-// 	// $columns['datetime'] = __( 'Date and Time' );
-// 	// $columns['shortcode'] = __( 'Shortcode' );
-// 	$columns['embeded_link'] = __( 'Embeded Link' );
-// 	return $columns;
-// }
-
-// /**
-// * Populating columns for events post type in admin area
-// **/
-// // add_action( 'manage_simple_events_posts_custom_column', 'simple_events_realestate_column', 10, 2);
-// function simple_events_realestate_column( $column, $post_id ) {
-// 	if ( 'embeded_link' === $column ) {
-// 		$post_slug = get_post_field( 'post_name', $post_id );
-//     	$stringPresent = strpos('-'.$post_slug, 'productembeded');
-//     	if ( $stringPresent ) {
-//     		echo '&lt;iframe width="100%" style="border: 1px solid #dcdcdc;" height="530px" src="'.get_permalink($post_id).'" frameborder="0"&gt;&lt/iframe&gt;';
-// 	    }
-// 	}
-// }
-
-add_action('admin_notices', 'blackhole_tools_admin_notice');
-function blackhole_tools_admin_notice() {
-	$screen = get_current_screen();	
-	if($screen->post_type == 'page'){
-		echo '<div class="notice notice-info">
-		    <p>For generating an embedded link: <br/>1) Add <b><i>productembeded</i></b> string in your slug <br/>2) Add shortcode <b><i>[productembeded ids="x, y, z"]</i></b> in editor where x, y, z are product ids.</p>
-		</div>';
-	}	
+/**
+* Adding columns for events post type in admin area
+**/
+add_filter( 'manage_edit-product_columns', 'simple_events_filter_posts_columns' );
+add_filter( 'manage_product_posts_custom_column', 'simple_events_realestate_column', 10, 2 );
+function simple_events_filter_posts_columns( $columns ) {	
+	$columns['product_views'] = esc_html__( 'Total Views', 'woocommerce' );
+	return $columns;
 }
+
+/**
+* Populating columns for events post type in admin area
+**/
+function simple_events_realestate_column( $column, $post_id ) {
+	if ( 'product_views' === $column ) {
+        $meta = get_post_meta( $post_id, '_views_count', TRUE );
+        if(empty($meta)) {
+            echo 0;
+        }
+        else {
+        	echo $meta; 
+        }
+	}
+}
+
+add_action('admin_head', 'my_column_width');
+function my_column_width() {
+    echo '<style type="text/css">';
+    echo 'table.wp-list-table #product_views { width: 47px; text-align: left!important;padding: 5px;}';
+    echo '</style>';
+}
+
+// add_action('admin_notices', 'blackhole_tools_admin_notice');
+// function blackhole_tools_admin_notice() {
+// 	$screen = get_current_screen();	
+// 	if($screen->post_type == 'page'){
+// 		echo '<div class="notice notice-info">
+// 		    <p>For generating an embedded link: <br/>1) Add <b><i>productembeded</i></b> string in your slug <br/>2) Add shortcode <b><i>[productembeded ids="x, y, z"]</i></b> in editor where x, y, z are product ids.</p>
+// 		</div>';
+// 	}	
+// }
+
+add_action('wp', function() {
+	global $post;
+	$metaKeyName = '_views_count';
+	if($post->post_type == 'product') {
+		if ( is_product() ) {
+			$counter = get_post_meta( $post->ID, $metaKeyName, TRUE );		
+			if(empty($counter)) {
+				update_post_meta( $post->ID, $metaKeyName, 1 );
+			} else {
+				$counter++;
+				update_post_meta( $post->ID, $metaKeyName, $counter );
+			}
+		}		
+	}
+});
