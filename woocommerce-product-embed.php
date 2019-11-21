@@ -106,7 +106,7 @@ function sendHtml($product) {
 
 	if( isset($product['price']) && isset($product['discount']) ) {
 		$discount = ((($product['price']-$product['discount'])/$product['price'])*100);
-		$is_on_sale ='<span class="btn-donate">'.round($discount).'%</span>';		
+		$is_on_sale ='<span class="btn-donate">- '.round($discount).'%</span>';		
 	} else {
 		$is_on_sale ='';
 	}

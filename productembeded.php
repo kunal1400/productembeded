@@ -10,11 +10,9 @@ require fs_get_wp_config_path();
 	<title></title>
 	<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) ?>css/bootstrap.css" type="text/css" />
 	<style type="text/css">
-		body {
-		    font-family: ARSMaquette,Helvetica,Arial,sans-serif;
-		    font-size: 14px;
-		    color: #333333;
-		    background-color: #ffffff;
+		body,
+		h3, a, small, b {
+		    font-family: ARSMaquette,Helvetica,Arial,sans-serif;		    
 		}
 	</style>
 </head>

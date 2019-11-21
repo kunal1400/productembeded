@@ -1101,3 +1101,10 @@ a.iframeBtn {
   padding: 12px;
   text-align: left;
 }
+.row .col-xl-3,
+.row .col-lg-3,
+.row .col-md-3,
+.row .col-sm-6 {
+    flex: unset;
+    max-width: unset;
+}
