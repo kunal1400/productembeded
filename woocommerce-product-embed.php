@@ -50,7 +50,13 @@ function productembeded_shortcode_callback( $atts ) {
 		if(count($products['product']) > 0) {
 			$onlyProducts = $products['product'];
 			$string = '<div class="container"><div class="row">';
-			for ($i=0; $i < count($onlyProducts) ; $i++) { 
+			$number_of_products_to_show = get_option("number_of_products_to_show");
+			if(!empty($number_of_products_to_show)) {
+				$count = $number_of_products_to_show;
+			} else {
+				$count = count($onlyProducts);				
+			}
+			for ($i=0; $i < $count ; $i++) { 
 				$data = $onlyProducts[$i];				
 				$string .= sendHtml($data);
 			}
@@ -193,3 +199,24 @@ add_action('wp', function() {
 		}		
 	}
 });
+
+add_action('admin_menu', 'my_general_section');  
+function my_general_section() {  
+	add_options_page(
+		'Product Feed Settings',
+		'Product Feed Settings',
+		'manage_options',
+		'product_feed_settings',
+		'productfeed_settings_page'
+	);	
+}
+
+function productfeed_settings_page() {
+	$number_of_products_to_show = "";
+	$number_of_products_to_show = get_option("number_of_products_to_show");
+	include __DIR__.'/templates/admin_settings.php';
+}
+
+if( !empty($_POST['number_of_products_to_show']) ) {
+	update_option("number_of_products_to_show", $_POST['number_of_products_to_show']);
+}
