@@ -11,7 +11,7 @@ require fs_get_wp_config_path();
 	<link rel="stylesheet" href="<?php echo plugin_dir_url( __FILE__ ) ?>css/bootstrap.css" type="text/css" />
 	<style type="text/css">
 		body {
-		    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		    font-family: ARSMaquette,Helvetica,Arial,sans-serif;
 		    font-size: 14px;
 		    color: #333333;
 		    background-color: #ffffff;

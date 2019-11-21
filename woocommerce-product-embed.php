@@ -93,18 +93,19 @@ function sendHtml($product) {
 	$name = $product['title'];
 	$image = $product['image_link'];
 	$description = $product['description'];
-	$regularPrice = $product['price']+$product['discount'];
+	$regularPrice = $product['price'];
 	$symbol = get_woocommerce_currency_symbol();
-	$saleprice = $product['price'];
+	$saleprice = $product['discount'];
 	$is_on_sale = true;
 	$permalink = $product['link'];
+	$discount = ((($product['price']-$product['discount'])/$product['price'])*100);
 
 	if($is_on_sale) {
-		$is_on_sale ='<span class="btn-donate">Sale!</span>';		
+		$is_on_sale ='<span class="btn-donate">'.round($discount).'%</span>';		
 	} else {
 		$is_on_sale ='';
 	}
-	return '<div class="col-md-3">
+	return '<div class="col-md-3 col-sm-6">
 	        <div class="card" >
 	        	<a target="_blank" href="'.$permalink.'">
 	        		<img src="'.$image.'" style="width:100%;max-height:200px;" />

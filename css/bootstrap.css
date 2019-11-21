@@ -1029,6 +1029,7 @@ hr {
   margin: 25px auto;
   position: relative;
   height: 400px;
+  font-family: ARSMaquette,Helvetica,Arial,sans-serif;
 }
 
 .price {
@@ -1059,8 +1060,8 @@ hr {
 .btn-donate {
   background: #e83a3a;
   text-align: center;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 100%;
   display: inline-flex;
   flex-direction: column;
@@ -1071,7 +1072,7 @@ hr {
   font-weight: bold;
   position: absolute;
   text-decoration: none;
-  right: 15px;
+  right: 0;
   top: 0;
 }
 .cancel {
@@ -1079,7 +1080,7 @@ hr {
 }
 .inline-block>div {
   display: inline-block;
-  width: 49%;
+  width: 47%;
   height: 40px;
 }
 a.iframeBtn {
