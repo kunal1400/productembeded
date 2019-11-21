@@ -96,11 +96,10 @@ function sendHtml($product) {
 	$regularPrice = $product['price'];
 	$symbol = get_woocommerce_currency_symbol();
 	$saleprice = $product['discount'];
-	$is_on_sale = true;
 	$permalink = $product['link'];
-	$discount = ((($product['price']-$product['discount'])/$product['price'])*100);
 
-	if($is_on_sale) {
+	if( isset($product['price']) && isset($product['discount']) ) {
+		$discount = ((($product['price']-$product['discount'])/$product['price'])*100);
 		$is_on_sale ='<span class="btn-donate">'.round($discount).'%</span>';		
 	} else {
 		$is_on_sale ='';

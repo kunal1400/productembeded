@@ -73,7 +73,7 @@ function fs_get_wp_config_path() {
 	// });
 
 	
-	// jQuery( ".listing__detail--wrapper" ).load( "http://localhost/wp-plugin-tasks/productembeded", function() {
+	// jQuery( ".nav-categories" ).load( "https://topnakup.si/productembeded-page/", function() {
 	//   alert( "Load was performed." );
 	// });
 
